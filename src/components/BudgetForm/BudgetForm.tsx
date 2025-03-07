@@ -7,13 +7,13 @@ export default function BudgetForm() {
     setBudget(e.target.valueAsNumber);
   };
   
-  const validBudget = () => {
-    return budget.toString().trim() !== "" && budget > 0;
-  }
+  // const validBudget = () => {
+  //   return budget.toString().trim() !== "" && budget > 0;
+  // }
   
-  // const validBudget = useMemo(() => {
-  //   return isNaN(budget) || budget <=0; 
-  // },[budget])
+  const validBudget = useMemo(() => {
+    return isNaN(budget) || budget <=0; 
+  },[budget])
   return (
     <>
       <form className="space-y-5">
@@ -38,7 +38,7 @@ export default function BudgetForm() {
           type="submit"
           value="Definir Presupuesto"
           className="bg-blue-600 hover:bg-blue-700 cursor.pointer w-full p-2 text-white font-black uppercase duration-200 border rounded-md disabled:opacity-40"
-          disabled={validBudget()}
+          disabled={validBudget}
         />
       </form>
     </>
