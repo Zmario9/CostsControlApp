@@ -1,4 +1,4 @@
-export type AmountDisplayProps ={
-    label: string,
+export type AmountDisplayProps = {
+    label?: string,
     amount: number
 }
