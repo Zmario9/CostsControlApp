@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import type { DraftExpense, Value } from "../../types";
 import { categories } from "../../data/categories";
 import DatePicker from "react-date-picker";
@@ -16,12 +16,14 @@ export default function ExpenseForm() {
   });
 
   const [error, setError] = useState("");
-  const { dispatch, state } = useBudget();
+  const [previousAmount, setPreviousAmount] = useState(0);
+  const { dispatch, state, remainingBudget } = useBudget();
   
   useEffect(() => {
     if(state.editingId){
       const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0];
       setExpense(editingExpense);
+      setPreviousAmount(editingExpense.amount);
     }
   },[state.editingId, state.expenses]);
 
@@ -41,6 +43,15 @@ export default function ExpenseForm() {
     e.preventDefault();
     if (Object.values(expense).includes("")) {
       setError("Todos los campos son obligatorios");
+      return;
+    }
+    if (expense.amount <= 0){
+      setError("El gasto debe ser mayor a 0");
+      return;
+    }
+    //Si el gasto menos el anterior es mayor al presupuesto.
+    if ((expense.amount - previousAmount) > remainingBudget) {
+      setError("Ese gasto se rebasa del presupuesto");
       return;
     }
     setError("");

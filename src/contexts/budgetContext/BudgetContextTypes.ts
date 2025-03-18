@@ -3,7 +3,9 @@ import { BudgetActions, BudgetState } from "../../reducers/budget-reducer";
 
 export type BudgetContextProps = {
     state: BudgetState
-    dispatch: Dispatch<BudgetActions>
+    dispatch: Dispatch<BudgetActions>,
+    totalExpenses: number,
+    remainingBudget: number
 }
 
 export type BudgetProviderProps = {
