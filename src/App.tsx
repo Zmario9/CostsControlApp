@@ -5,6 +5,7 @@ import { useBudget } from "./hooks/useBudget";
 import { useEffect, useMemo } from "react";
 import ExpenseModal from "./components/ExpenseModal/ExpenseModal";
 import ExpensesList from "./components/ExpensesList/ExpensesList";
+import FilterByCategory from "./components/FilterByCategory/FilterByCategory";
 function App() {
   const {state} = useBudget();
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget]);
@@ -27,6 +28,7 @@ function App() {
       </div>
       {isValidBudget && (
         <main className="max-w-3xl mx-auto py-10">
+          <FilterByCategory/>
           <ExpensesList/>
           <ExpenseModal/>
         </main>
