@@ -17,6 +17,7 @@ export type BudgetState = {
     modal: boolean;
     expenses: Expense[];
     editingId: Expense['id'];
+    currentCategory: Category['id'];
 };
 
 const initialBudget = () : number =>{
@@ -33,6 +34,7 @@ export const initialState: BudgetState = {
     modal: false,
     expenses: localStorageExpenses(),
     editingId: '',
+    currentCategory: '',
 };
 
 const createExpense = (draftExpense: DraftExpense): Expense => {
@@ -98,7 +100,10 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
         }
     }
     if (action.type === 'add-filter-category') {
-        
+        return{
+            ...state,
+            currentCategory: action.payload.id
+        }
     }
 
     return state;
